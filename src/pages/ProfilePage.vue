@@ -2,6 +2,8 @@
   <div class="profile container-fluid text-center">
     <div class="row">
       <div class="col-4 bg-primary elevation-2 ms-2">
+        <img :src="profile.coverImg" alt="" />
+        profile stuff here
         <h1>{{ profile.name }}</h1>
         <img class="rounded" :src="profile.picture" alt="" />
         <p>{{ profile.email }}</p>
@@ -18,7 +20,7 @@ import { AppState } from "../AppState";
 import { onMounted, watchEffect } from "@vue/runtime-core";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
-import { profilesService } from "../services/ProfileService";
+import { profilesService } from "../services/ProfilesService";
 import { useRoute } from "vue-router";
 import { postsService } from "../services/PostsService";
 export default {

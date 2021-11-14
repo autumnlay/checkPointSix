@@ -1,6 +1,7 @@
 import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
+import { postsService } from "./PostsService"
 
 
 
@@ -10,6 +11,24 @@ class ProfilesService{
     logger.log('profile ', res.data)
     AppState.profile = res.data
   }
-}
+  
+  async getAllProfiles(pQuery = ""){
+      const res = await api.get('api/cars' + pQuery)
+      AppState.profile = res.data
+    }
 
+    async editProfile(profile) {
+        const res = await api.put('api/profile/' + profile.id)
+        logger.log(res.data)
+        AppState.activePost = res.data
+        const index = AppState.profile.findIndex(p => p.id === res.data.id)
+        if (index === -1) {
+            AppState.profile.push(res.data)
+            return
+        }
+        AppState.profile.splice(index, 1, res.data)
+    }
+
+}
+    
 export const profilesService = new ProfilesService()
