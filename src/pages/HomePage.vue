@@ -1,6 +1,5 @@
 <template>
   <div class="home container-fluid">
-    <Madds />
     <Search />
     <CreatePost v-if="account.id" />
     <Thread />

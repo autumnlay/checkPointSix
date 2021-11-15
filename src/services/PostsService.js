@@ -16,7 +16,7 @@ class PostsService {
     }
 
     async getById(id) {
-        const res = await api.get('api/cars/' + id)
+        const res = await api.get('api/posts/' + id)
         logger.log(res.data)
         AppState.activePost = res.data
     }
@@ -27,11 +27,14 @@ class PostsService {
         AppState.posts.unshift(res.data.posts)
     }
 
-    async remove(id) {
-        debugger
-        const res = await api.delete('api/posts/' + AppState.activePost.id)
-        AppState.posts = AppState.posts.filter(p => p.id !== AppState.activePost.id)
-        AppState.activePost.splice(res.data.id)
+    async remove(post) {
+        //debugger
+        const res = await api.delete('api/posts/' + AppState.posts.id)
+        AppState.posts = AppState.posts.filter(p => p.id !== AppState.posts.id)
+        //AppState.posts = AppState.posts.filter(p => p.id !== AppState.posts.id)
+        AppState.posts = res.data.posts
+        //AppState.activePost.splice(res.data.id)
+        //AppState.activePost.posts =  AppState.activePost.posts.filter(p => p.id !== post.id)
     }
 
     setActive(post) {
@@ -39,8 +42,11 @@ class PostsService {
     }
     
     async getAllLikes() {
-        const res = await api.get('api/posts' + query)
-        AppState.posts.liked = AppState.posts.liked.filter(p => p.id)
+        const res = await api.get('api/posts' + query);
+        AppState.posts.likeIds = AppState.posts.likeIds.filter(p => p.id)
+        // AppState.posts.likeIds.forEach(AppState.posts.likeIds{
+        //     AppState.posts.likeIds++
+        // })
         //math here to count all the numbers in the array of likes
         //arr.length
         

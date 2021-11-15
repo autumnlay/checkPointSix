@@ -100,6 +100,7 @@ import { computed } from "vue";
 export default {
   setup() {
     return {
+      //account: computed(() => AppState.account),
       user: computed(() => AppState.user),
       async login() {
         AuthService.loginWithPopup();

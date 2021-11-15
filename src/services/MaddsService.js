@@ -1,4 +1,7 @@
 import { AppState } from "../AppState"
+import { logger } from "../utils/Logger"
+import { api } from "./AxiosService"
+
 
 class MaddsService{
     constructor() {
@@ -8,7 +11,8 @@ class MaddsService{
     async getMadd() {
         const res = await api.get('api/ads')
         logger.log('adds here', res.data)
-        AppState.madds = res.data.banner
+        AppState.madds = res.data
+        //AppState.madds = res.data.banner
     }
 }
 

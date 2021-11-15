@@ -18,7 +18,7 @@ class ProfilesService{
     }
 
     async editProfile(profile) {
-        const res = await api.put('api/profile/' + profile.id)
+        const res = await api.put('api/profile/' + profile.id, profile)
         logger.log(res.data)
         AppState.activePost = res.data
         const index = AppState.profile.findIndex(p => p.id === res.data.id)

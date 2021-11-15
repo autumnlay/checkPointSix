@@ -1,6 +1,7 @@
 <template>
   <header>
     <Navbar />
+    <Madds />
   </header>
   <main>
     <router-view />

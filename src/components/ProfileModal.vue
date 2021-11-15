@@ -1,5 +1,5 @@
 <template>
-  <ProfileModal id="ProfileModal">
+  <ProfileModal id="profile-modal">
     <template #modal-title class="bg-success">
       <h4>{{ profile.id ? "Edit" : "Create" }} Profile</h4>
     </template>
@@ -118,9 +118,8 @@ export default {
   },
   setup(props) {
     const router = useRouter();
-    const editable = ref({});
+    const editable = ref({ profile: { name: "", bio: "" } });
 
-    // watchEffect is a method that runs anytime any of its values change
     watchEffect(() => {
       editable.value = { ...props.profile };
     });
@@ -134,7 +133,6 @@ export default {
           } else {
             await profilesService.create(editable.value);
           }
-          // if successful close modal
           Modal.getOrCreateInstance(
             document.getElementById("profile-modal")
           ).hide();
@@ -142,11 +140,13 @@ export default {
             name: "Profile",
             params: { id: AppState.profile.id },
           });
-          // change route to car details for this new car
         } catch (error) {
           logger.error(error);
           Pop.toast("Failed to Create", "error");
         }
+      },
+      async editProfile() {
+        await profilesService.editProfile(editable.profile);
       },
     };
   },

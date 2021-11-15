@@ -1,6 +1,6 @@
 <template>
   <div class="search row px-5">
-    <div class="col-12">
+    <div class="col-4 d-flex justify-content-end">
       <!-- NOTE submits searches when the form is submitted -->
       <form @submit.prevent="searchPosts" class="input-group">
         <!-- NOTE keypress submits on each keypress, ideally you don't want both of these on your search bar but can be helpful -->

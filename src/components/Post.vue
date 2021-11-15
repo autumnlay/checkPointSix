@@ -1,6 +1,12 @@
 <template class="posts row">
   <div class="card col-10 p-4 my-2 shadow" id="activvePost">
-    <button class="col-2 btn btn-primary" @click="remove">Delete</button>
+    <button
+      class="col-2 btn btn-primary"
+      v-if="post.creator.id == account.id"
+      @click="remove"
+    >
+      Delete
+    </button>
     <router-link :to="{ name: 'Profile', params: { id: post.creator.id } }">
       <p>
         <img class="profileImg img-fluid p-1" :src="post.creator.picture" />
@@ -37,6 +43,7 @@ export default {
     //};
     return {
       // post: computed(() => AppState.activePost),
+      profile: computed(() => AppState.profile),
       account: computed(() => AppState.account),
       async remove() {
         try {

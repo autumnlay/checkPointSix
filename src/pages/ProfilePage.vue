@@ -1,22 +1,29 @@
 <template>
   <div class="profile container-fluid text-center">
     <div class="row">
-      <div class="col-4 bg-primary elevation-2 ms-2">
+      <div class="col-12 bg-primary elevation-2 ms-2">
+        <img :src="profile.coverImg" class="background img-fluid" />
+        <!-- ProfileModal -->
         <button
           class="btn btn-success"
           data-bs-toggle="modal"
-          data-bs-target="#profileModal"
+          data-bs-target="#profile-modal"
+          @click="editProfile"
         >
           <i class="mdi mdi-pencil"></i>
           <!-- <ProfileModal /> -->
         </button>
-        <img :src="profile.coverImg" alt="" />
-        profile stuff here
-        <h1>{{ profile.name }}</h1>
+        <h1>About Me:</h1>
         <img class="rounded" :src="profile.picture" alt="" />
-        <p>{{ profile.email }}</p>
+        <h1>My name is {{ profile.name }}</h1>
+        <p>My email is {{ profile.email }}</p>
         <div>{{ profile.bio }}</div>
-        <div>I Have Graduated: {{ profile.graduated }}</div>
+        <div v-if="profile.graduated == true">I Have Graduated</div>
+        <div v-else>I have not Graduated</div>
+        <div>{{ profile.class }}</div>
+        <i class="mdi mdi-github"></i>
+        <i class="mdi mdi-linkedin"></i>
+        <i class="mdi mdi-newspaper"></i>
       </div>
     </div>
     <CreatePost v-if="account.id == profile.id" />
@@ -39,6 +46,9 @@ export default {
   name: "Profile",
   setup() {
     const route = useRoute();
+    // const state = reactive({
+    //   editProfile:
+    // })
     watchEffect(async () => {
       try {
         if (route.name == "Profile") {
@@ -53,6 +63,12 @@ export default {
     return {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
+      async editProfile() {
+        await profilesService.editProfile();
+        return;
+      },
+
+      //method for the button for edit
     };
   },
 };
