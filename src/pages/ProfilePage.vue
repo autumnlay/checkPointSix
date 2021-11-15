@@ -2,11 +2,21 @@
   <div class="profile container-fluid text-center">
     <div class="row">
       <div class="col-4 bg-primary elevation-2 ms-2">
+        <button
+          class="btn btn-success"
+          data-bs-toggle="modal"
+          data-bs-target="#profileModal"
+        >
+          <i class="mdi mdi-pencil"></i>
+          <!-- <ProfileModal /> -->
+        </button>
         <img :src="profile.coverImg" alt="" />
         profile stuff here
         <h1>{{ profile.name }}</h1>
         <img class="rounded" :src="profile.picture" alt="" />
         <p>{{ profile.email }}</p>
+        <div>{{ profile.bio }}</div>
+        <div>I Have Graduated: {{ profile.graduated }}</div>
       </div>
     </div>
     <CreatePost v-if="account.id == profile.id" />
@@ -23,7 +33,9 @@ import Pop from "../utils/Pop";
 import { profilesService } from "../services/ProfilesService";
 import { useRoute } from "vue-router";
 import { postsService } from "../services/PostsService";
+import ProfileModal from "../components/ProfileModal.vue";
 export default {
+  components: { ProfileModal },
   name: "Profile",
   setup() {
     const route = useRoute();

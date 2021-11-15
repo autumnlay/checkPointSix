@@ -11,4 +11,5 @@ export const AppState = reactive({
   totalPages: 0,
   profile: {},
   activePost: {},
+  madds: []
 })
