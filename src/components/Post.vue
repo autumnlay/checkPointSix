@@ -13,10 +13,15 @@
         {{ post.creator.name }}
       </p>
     </router-link>
+    <p>{{ post.createdAt }}</p>
     <img class="img-fluid" :src="post.imgUrl" />
 
     <h4>{{ post.body }}</h4>
-    <div class="selectable mdi mdi-heart"></div>
+    <!-- TODO need @click -->
+    <i class="selectable mdi mdi-heart-outline" v-if="liked">{{
+      post.likeIds.length
+    }}</i>
+    <i class="selectable mdi mdi-heart" v-else>{{ post.likeIds.length }}</i>
   </div>
 </template>
 
@@ -30,7 +35,7 @@ import { computed } from "@vue/reactivity";
 export default {
   //need to use an onclick, and the a useRouter() here!!!
   props: { post: { type: Object, required: true } },
-  setup() {
+  setup(props) {
     //const route = useRoute()
     // const router = useRouter();
     // return {
@@ -42,13 +47,17 @@ export default {
     //   },
     //};
     return {
-      // post: computed(() => AppState.activePost),
+      //TODO find arrary method to see if likeIds includes account Id
+      // liked: computed(() => {
+      //   return props.likeIds.includes(AppState.account?.id);
+      // }),
+      liked: computed(() => props.post.likeIds),
       profile: computed(() => AppState.profile),
       account: computed(() => AppState.account),
       async remove() {
         try {
           if (await Pop.confirm()) {
-            await postsService.remove();
+            await postsService.remove(props.post);
             //router.push({ name: "Post" });
           }
         } catch (error) {
@@ -60,6 +69,13 @@ export default {
         try {
           await postsService.getAllLikes();
         } catch (error) {}
+      },
+      async like() {
+        try {
+          await postsService.like();
+        } catch (error) {
+          logger.error(error);
+        }
       },
     };
   },

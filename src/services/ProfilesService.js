@@ -21,7 +21,7 @@ class ProfilesService{
         const res = await api.put('api/profile/' + profile.id, profile)
         logger.log(res.data)
         AppState.activePost = res.data
-        const index = AppState.profile.findIndex(p => p.id === res.data.id)
+        const index = AppState.profile.findIndex(p => p.id ===profile.id)
         if (index === -1) {
             AppState.profile.push(res.data)
             return

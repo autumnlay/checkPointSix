@@ -111,10 +111,10 @@ import { watchEffect } from "@vue/runtime-core";
 
 export default {
   props: {
-    // profile: {
-    //   type: Profile,
-    //   default: () => new profile(),
-    // },
+    profile: {
+      type: "Profile",
+      required: true,
+    },
   },
   setup(props) {
     const router = useRouter();
@@ -128,11 +128,6 @@ export default {
       editable,
       async handleSubmit() {
         try {
-          if (editable.value.id) {
-            await profilesService.edit(editable.value);
-          } else {
-            await profilesService.create(editable.value);
-          }
           Modal.getOrCreateInstance(
             document.getElementById("profile-modal")
           ).hide();
@@ -146,7 +141,7 @@ export default {
         }
       },
       async editProfile() {
-        await profilesService.editProfile(editable.profile);
+        await profilesService.editProfile(AppState.profile);
       },
     };
   },
