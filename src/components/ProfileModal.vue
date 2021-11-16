@@ -1,7 +1,7 @@
 <template>
   <ProfileModal id="profile-modal">
     <template #modal-title class="bg-success">
-      <h4>{{ profile.id ? "Edit" : "Create" }} Profile</h4>
+      <h4>{{ profile.id }} Profile</h4>
     </template>
     <template #modal-body>
       <form @submit.prevent="handleSubmit">
@@ -90,7 +90,7 @@
             Close
           </button>
           <button type="submit" class="btn btn-primary">
-            {{ car.id ? "Save" : "Create" }}
+            {{ profile.id ? "Save" : "Create" }}
           </button>
         </div>
       </form>
@@ -140,7 +140,7 @@ export default {
           Pop.toast("Failed to Create", "error");
         }
       },
-      async editProfile() {
+      async editProfile(props) {
         await profilesService.editProfile(AppState.profile);
       },
     };

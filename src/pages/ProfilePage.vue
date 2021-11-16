@@ -8,9 +8,10 @@
           class="btn btn-success"
           data-bs-toggle="modal"
           data-bs-target="#profile-modal"
+          v-if="account.id == profile.id"
           @click="editProfile"
         >
-          <i class="mdi mdi-pencil"></i>
+          <i class="mdi mdi-pencil">edit</i>
           <!-- <ProfileModal /> -->
         </button>
         <h1>About Me:</h1>
@@ -63,8 +64,8 @@ export default {
     return {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
-      async editProfile() {
-        await profilesService.editProfile();
+      async editProfile(profile) {
+        await profilesService.editProfile(profile);
         return;
       },
 

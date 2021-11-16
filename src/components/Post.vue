@@ -13,15 +13,22 @@
         {{ post.creator.name }}
       </p>
     </router-link>
-    <p>{{ post.createdAt }}</p>
+    <p>{{ Date("post.createdAt") }}</p>
     <img class="img-fluid" :src="post.imgUrl" />
 
     <h4>{{ post.body }}</h4>
     <!-- TODO need @click -->
-    <i class="selectable mdi mdi-heart-outline" v-if="liked">{{
-      post.likeIds.length
-    }}</i>
-    <i class="selectable mdi mdi-heart" v-else>{{ post.likeIds.length }}</i>
+    <button class="col-2">
+      <i
+        class="selectable mdi mdi-heart-outline"
+        v-if="account.id"
+        @click="like(post.likeIds.id)"
+        >{{ post.likeIds.length }}</i
+      >
+      <i class="selectable mdi mdi-heart" v-else @click="like(post.id)">{{
+        post.likeIds.length
+      }}</i>
+    </button>
   </div>
 </template>
 
@@ -48,12 +55,19 @@ export default {
     //};
     return {
       //TODO find arrary method to see if likeIds includes account Id
-      // liked: computed(() => {
-      //   return props.likeIds.includes(AppState.account?.id);
-      // }),
-      liked: computed(() => props.post.likeIds),
+      liked: computed(() => {
+        return AppState.posts.likeIds.includes(account.id);
+      }),
+      // liked: computed(() =>
+      //   AppState.posts.find(m + m.id === props.post.likedIds.id)
+      // ),
+      //liked: computed(() => props.post.likeIds),
       profile: computed(() => AppState.profile),
       account: computed(() => AppState.account),
+      // async getDate() {
+      //   await postsService.getDate();
+      // },
+
       async remove() {
         try {
           if (await Pop.confirm()) {
@@ -70,9 +84,9 @@ export default {
           await postsService.getAllLikes();
         } catch (error) {}
       },
-      async like() {
+      async like(id) {
         try {
-          await postsService.like();
+          await postsService.like(id);
         } catch (error) {
           logger.error(error);
         }

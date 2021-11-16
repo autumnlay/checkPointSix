@@ -51,10 +51,12 @@ class PostsService {
         
     }
 
-    async like(like) {
-        const res = await api.put('api/posts' + like.id + '/likes')
+    async like(id) {
+        const res = await api.put('api/posts/' + id + '/like')
+        logger.log('liked data', res.data)
         AppState.posts.likeIds.unshift(res.data)
     }
+
 }
 
 export const postsService = new PostsService()
