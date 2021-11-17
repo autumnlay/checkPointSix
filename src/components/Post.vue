@@ -1,5 +1,17 @@
-<template class="posts row">
-  <div class="card col-10 p-4 my-2 shadow" id="activvePost">
+<template class="posts rowd-flex justify-content-center">
+  <div
+    class="
+      card
+      bg-secondary
+      col-12
+      p-4
+      my-2
+      shadow
+      d-flex
+      justify-content-center
+    "
+    id="activvePost"
+  >
     <button
       class="col-2 btn btn-primary"
       v-if="post.creator.id == account.id"
@@ -9,13 +21,14 @@
     </button>
     <router-link :to="{ name: 'Profile', params: { id: post.creator.id } }">
       <p>
-        <img class="profileImg img-fluid p-1" :src="post.creator.picture" />
+        <img class="profileImg img-fluid p-2" :src="post.creator.picture" />
         {{ post.creator.name }}
       </p>
     </router-link>
     <p>{{ Date("post.createdAt") }}</p>
-    <img class="img-fluid" :src="post.imgUrl" />
-
+    <div class="d-flex justify-content-center">
+      <img class="img-fluid imgLimit" :src="post.imgUrl" />
+    </div>
     <h4>{{ post.body }}</h4>
     <!-- TODO need @click -->
     <button class="col-2">
@@ -43,16 +56,6 @@ export default {
   //need to use an onclick, and the a useRouter() here!!!
   props: { post: { type: Object, required: true } },
   setup(props) {
-    //const route = useRoute()
-    // const router = useRouter();
-    // return {
-    //   activePost: computed(() => AppState.activePost),
-    //   routeToProfile() {
-    //     const postElem = document.getElementById("activvePost");
-    //     Modal.getOrCreateInstance(postElem).toggle(),
-    //       router.push({ name: "Profile" }, params: {id: AppState.activePost.creator.id})
-    //   },
-    //};
     return {
       //TODO find arrary method to see if likeIds includes account Id
       liked: computed(() => {
@@ -104,5 +107,10 @@ export default {
 }
 .profileImg:hover {
   box-shadow: 0 0 3px 1px rgba(2, 21, 27, 0.5);
+}
+
+.imgLimit {
+  max-height: 50vh;
+  max-width: 50vh;
 }
 </style>

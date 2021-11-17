@@ -1,15 +1,15 @@
 <template>
-  <div class="thread row">
+  <div class="thread row justify-content-center">
     <!-- only render this IF account.id (account having an id indicates someone is loggedin) -->
     <button
-      class="btn btn-primary col-2"
+      class="btn btn-primary col-2 m-3"
       :disabled="!newer"
       @click="getPosts('newer')"
     >
       Newer
     </button>
     <button
-      class="btn btn-primary col-2"
+      class="btn btn-primary col-2 m-3"
       :disabled="!older"
       @click="getPosts('older')"
     >

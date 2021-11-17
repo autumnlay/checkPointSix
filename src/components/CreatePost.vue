@@ -1,5 +1,8 @@
-<template>
-  <form @submit.prevent="createPost" class="p-3 m-2 card col-10">
+<template class="row justify-content-center">
+  <form
+    @submit.prevent="createPost"
+    class="bg-secondary col-12 p-3 card d-flex justify-content-around"
+  >
     <div class="create-post row">
       <div>
         <label

@@ -1,19 +1,8 @@
 <template>
   <div class="profile container-fluid text-center">
     <div class="row">
-      <div class="col-12 bg-primary elevation-2 ms-2">
-        <img :src="profile.coverImg" class="background img-fluid" />
-        <!-- ProfileModal -->
-        <button
-          class="btn btn-success"
-          data-bs-toggle="modal"
-          data-bs-target="#profile-modal"
-          v-if="account.id == profile.id"
-          @click="editProfile"
-        >
-          <i class="mdi mdi-pencil">edit</i>
-          <!-- <ProfileModal /> -->
-        </button>
+      <div class="col-12 bg-primary elevation-2 p-2 my-2">
+        <img :src="profile.coverImg" class="background imgPlace" />
         <h1>About Me:</h1>
         <img class="rounded" :src="profile.picture" alt="" />
         <h1>My name is {{ profile.name }}</h1>
@@ -25,6 +14,19 @@
         <i class="mdi mdi-github"></i>
         <i class="mdi mdi-linkedin"></i>
         <i class="mdi mdi-newspaper"></i>
+        <!-- ProfileModal -->
+        <div>
+          <button
+            class="btn btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#profile-modal"
+            v-if="account.id == profile.id"
+            @click="editProfile"
+          >
+            <i class="mdi mdi-pencil">edit</i>
+            <!-- <ProfileModal /> -->
+          </button>
+        </div>
       </div>
     </div>
     <CreatePost v-if="account.id == profile.id" />
@@ -78,5 +80,8 @@ export default {
 <style scoped>
 img {
   max-width: 100px;
+}
+.imgPlace {
+  width: 100vh;
 }
 </style>

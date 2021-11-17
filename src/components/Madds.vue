@@ -1,8 +1,8 @@
 <template>
-  <div class="row">
-    <div class="col-12">
-      <div class="p-1" v-for="a in madds" :key="a">
-        <img :src="a.banner" class="img-fluid rounded" />
+  <div>
+    <div class="col-12 d-flex justify-content-center">
+      <div class="p-2" v-for="a in madds" :key="a">
+        <img :src="a.banner" class="img-fluid rounded shadow" />
       </div>
     </div>
   </div>
